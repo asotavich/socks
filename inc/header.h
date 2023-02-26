@@ -18,10 +18,13 @@ void win(const int width, const int height);
 void lose(const int width, const int height);
 int keydown(SDL_Event e, char *letters, int *enter);
 void living_room(const int width, const int height);
-int bath(const int width, const int height);
-int menu(const int width, const int height);
-int kitchen(const int width, const int height);
-//void remove_object(char *letters);
+void bath(const int width, const int height);
+void menu(const int width, const int height);
+void kitchen(const int width, const int height);
+void help(const int width, const int height);
+void help_kitchen(const int width, const int height);
+void help_living_room(const int width, const int height);
+void help_bath(const int width, const int height);
 SDL_Window *game_init(const char *title, const int width, const int height);
 void clean(SDL_Window *window, SDL_Renderer *redenderer);
 

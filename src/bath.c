@@ -1,21 +1,21 @@
 #include "../inc/header.h"
 
-bool flag_IsRunning;
+bool IsRunning_bath;
 
 SDL_Window *window_bath;  
 SDL_Renderer *renderer_bath;
 
-SDL_Texture *tex_wall;
-SDL_Rect rect_wall;
+SDL_Texture *tex_wall_bath;
+SDL_Rect rect_wall_bath;
 
-SDL_Texture *tex_floor;
-SDL_Rect rect_floor;
+SDL_Texture *tex_floor_bath;
+SDL_Rect rect_floor_bath;
 
 SDL_Texture *tex_towel_stand;
 SDL_Rect rect_towel_stand;
 
-SDL_Texture *tex_bedside_table;
-SDL_Rect rect_bedside_table;
+SDL_Texture *tex_bedside_table_bath;
+SDL_Rect rect_bedside_table_bath;
 SDL_Rect rect_bedside_table_2;
 
 SDL_Texture *tex_bulb_blackpng;
@@ -30,8 +30,8 @@ SDL_Texture *tex_cacti;
 SDL_Rect rect_cacti;
 SDL_Rect rect_cacti_2;
 
-SDL_Texture *tex_candle;
-SDL_Rect rect_candle;
+SDL_Texture *tex_candle_bath;
+SDL_Rect rect_candle_bath;
 
 SDL_Texture *tex_carpet_blue;
 SDL_Rect rect_carpet_blue;
@@ -45,8 +45,8 @@ SDL_Rect rect_carpet_yellow;
 SDL_Texture *tex_door;
 SDL_Rect rect_door;
 
-SDL_Texture *tex_end_table;
-SDL_Rect rect_end_table;
+SDL_Texture *tex_end_table_bath;
+SDL_Rect rect_end_table_bath;
 
 SDL_Texture *tex_minicup_gray;
 SDL_Rect rect_minicup_gray;
@@ -58,8 +58,8 @@ SDL_Rect rect_minicup_red;
 SDL_Texture *tex_mirror;
 SDL_Rect rect_mirror;
 
-SDL_Texture *tex_shelf_wall;
-SDL_Rect rect_shelf_wall;
+SDL_Texture *tex_shelf_wall_bath;
+SDL_Rect rect_shelf_wall_bath;
 
 SDL_Texture *tex_shelves;
 SDL_Rect rect_shelves;
@@ -83,16 +83,13 @@ SDL_Rect rect_washing_machine;
 SDL_Texture *tex_sock_trident;
 SDL_Rect rect_sock_trident;
 
-void init_bath(const char *title, int x, int y, int width, int height, bool fullscreen) {
+void init_bath(const char *title, int x, int y, int width, int height) {
     srand(time(0));
 	int randomNum = rand() % 5;
-    int flags = 0;
-    if (fullscreen) {
-        flags = SDL_WINDOW_FULLSCREEN;
-    }
+
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         printf("Sybsystems Initialised Successfully\n");
-	window_bath = SDL_CreateWindow(title, x, y, width, height, flags);
+	window_bath = SDL_CreateWindow(title, x, y, width, height, 0);
 	if (window_bath) {
         printf("Window created successfully\n");
 	}
@@ -101,7 +98,7 @@ void init_bath(const char *title, int x, int y, int width, int height, bool full
 	if (renderer_bath) {
         printf("Renderer created successfully\n");
 	}
-	flag_IsRunning = true;
+	IsRunning_bath = true;
     }
 
     if (randomNum == 0) {
@@ -135,17 +132,17 @@ void init_bath(const char *title, int x, int y, int width, int height, bool full
 
     tex_sock_trident = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/sock_trident.png");
     
-    rect_wall.w = 800;
-    rect_wall.h = 300;
-    tex_wall = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/wall.png");
-    if (!tex_wall)
+    rect_wall_bath.w = 800;
+    rect_wall_bath.h = 300;
+    tex_wall_bath = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/wall.png");
+    if (!tex_wall_bath)
         printf("%s\n", SDL_GetError());
 
-    rect_floor.y = 300;
-    rect_floor.w = 800;
-    rect_floor.h = 300;
-    tex_floor = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/floor.png");
-    if (!tex_floor)
+    rect_floor_bath.y = 300;
+    rect_floor_bath.w = 800;
+    rect_floor_bath.h = 300;
+    tex_floor_bath = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/floor.png");
+    if (!tex_floor_bath)
         printf("%s\n", SDL_GetError());
         
     rect_towel_stand.x = 5;
@@ -164,20 +161,20 @@ void init_bath(const char *title, int x, int y, int width, int height, bool full
     if (!tex_shelves)
         printf("%s\n", SDL_GetError());
 
-    rect_bedside_table.x = 215;
-    rect_bedside_table.y = 247;
-    rect_bedside_table.w = 60;
-    rect_bedside_table.h = 62;
-    tex_bedside_table = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/bedside_table.png");
-    if (!tex_bedside_table)
+    rect_bedside_table_bath.x = 215;
+    rect_bedside_table_bath.y = 247;
+    rect_bedside_table_bath.w = 60;
+    rect_bedside_table_bath.h = 62;
+    tex_bedside_table_bath = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/bedside_table.png");
+    if (!tex_bedside_table_bath)
         printf("%s\n", SDL_GetError());
         
     rect_bedside_table_2.x = 275;
     rect_bedside_table_2.y = 247;
     rect_bedside_table_2.w = 60;
     rect_bedside_table_2.h = 62;
-    tex_bedside_table = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/bedside_table.png");
-    if (!tex_bedside_table)
+    tex_bedside_table_bath = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/bedside_table.png");
+    if (!tex_bedside_table_bath)
         printf("%s\n", SDL_GetError());
         
     rect_bulb_blackpng.x = 567;
@@ -253,12 +250,12 @@ void init_bath(const char *title, int x, int y, int width, int height, bool full
     if (!tex_door)
         printf("%s\n", SDL_GetError());
         
-    rect_end_table.x = 460;
-    rect_end_table.y = 251;
-    rect_end_table.w = 90;
-    rect_end_table.h = 72;
-    tex_end_table = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/end_table.png");
-    if (!tex_end_table)
+    rect_end_table_bath.x = 460;
+    rect_end_table_bath.y = 251;
+    rect_end_table_bath.w = 90;
+    rect_end_table_bath.h = 72;
+    tex_end_table_bath = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/end_table.png");
+    if (!tex_end_table_bath)
         printf("%s\n", SDL_GetError());
         
     rect_minicup_gray.x = 567;
@@ -285,12 +282,12 @@ void init_bath(const char *title, int x, int y, int width, int height, bool full
     if (!tex_minicup_red)
         printf("%s\n", SDL_GetError());
         
-    rect_candle.x = 515;
-    rect_candle.y = 252;
-    rect_candle.w = 25;
-    rect_candle.h = 27;
-    tex_candle = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/candle.png");
-    if (!tex_candle)
+    rect_candle_bath.x = 515;
+    rect_candle_bath.y = 252;
+    rect_candle_bath.w = 25;
+    rect_candle_bath.h = 27;
+    tex_candle_bath = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/candle.png");
+    if (!tex_candle_bath)
         printf("%s\n", SDL_GetError());
         
     rect_mirror.x = 470;
@@ -301,12 +298,12 @@ void init_bath(const char *title, int x, int y, int width, int height, bool full
     if (!tex_mirror)
         printf("%s\n", SDL_GetError());
         
-    rect_shelf_wall.x = 366;
-    rect_shelf_wall.y = 141;
-    rect_shelf_wall.w = 78;
-    rect_shelf_wall.h = 40;
-    tex_shelf_wall = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/shelf_wall.png");
-    if (!tex_shelf_wall)
+    rect_shelf_wall_bath.x = 366;
+    rect_shelf_wall_bath.y = 141;
+    rect_shelf_wall_bath.w = 78;
+    rect_shelf_wall_bath.h = 40;
+    tex_shelf_wall_bath = IMG_LoadTexture(renderer_bath, "resource/images_b/Bath/shelf_wall.png");
+    if (!tex_shelf_wall_bath)
         printf("%s\n", SDL_GetError());
         
     rect_sink.x = 375;
@@ -358,15 +355,16 @@ void init_bath(const char *title, int x, int y, int width, int height, bool full
         printf("%s\n", SDL_GetError());
 }
 
-void render_bath() {
+void render_bath(void) {
     SDL_RenderClear(renderer_bath);
     
-    SDL_RenderCopy(renderer_bath, tex_wall, NULL, &rect_wall);
-    SDL_RenderCopy(renderer_bath, tex_floor, NULL, &rect_floor);
+    SDL_RenderCopy(renderer_bath, tex_wall_bath, NULL, &rect_wall_bath);
+    SDL_RenderCopy(renderer_bath, tex_floor_bath, NULL, &rect_floor_bath);
+    SDL_RenderCopy(renderer_bath, tex_sock_trident, NULL, &rect_sock_trident);
     SDL_RenderCopy(renderer_bath, tex_towel_stand, NULL, &rect_towel_stand);
     SDL_RenderCopy(renderer_bath, tex_shelves, NULL, &rect_shelves);
-    SDL_RenderCopy(renderer_bath, tex_bedside_table, NULL, &rect_bedside_table);
-    SDL_RenderCopy(renderer_bath, tex_bedside_table, NULL, &rect_bedside_table_2);
+    SDL_RenderCopy(renderer_bath, tex_bedside_table_bath, NULL, &rect_bedside_table_bath);
+    SDL_RenderCopy(renderer_bath, tex_bedside_table_bath, NULL, &rect_bedside_table_2);
     SDL_RenderCopy(renderer_bath, tex_bulb_blackpng, NULL, &rect_bulb_blackpng);
     SDL_RenderCopy(renderer_bath, tex_bulb_blackpng, NULL, &rect_bulb_blackpng_2);
     SDL_RenderCopy(renderer_bath, tex_bulb_gray, NULL, &rect_bulb_gray);
@@ -376,13 +374,13 @@ void render_bath() {
     SDL_RenderCopy(renderer_bath, tex_carpet_blue, NULL, &rect_carpet_blue);
     SDL_RenderCopy(renderer_bath, tex_carpet_yellow, NULL, &rect_carpet_yellow);
     SDL_RenderCopy(renderer_bath, tex_door, NULL, &rect_door);
-    SDL_RenderCopy(renderer_bath, tex_end_table, NULL, &rect_end_table);
+    SDL_RenderCopy(renderer_bath, tex_end_table_bath, NULL, &rect_end_table_bath);
     SDL_RenderCopy(renderer_bath, tex_minicup_gray, NULL, &rect_minicup_gray);
     SDL_RenderCopy(renderer_bath, tex_minicup_gray, NULL, &rect_minicup_gray_2);
     SDL_RenderCopy(renderer_bath, tex_minicup_red, NULL, &rect_minicup_red);
-    SDL_RenderCopy(renderer_bath, tex_candle, NULL, &rect_candle);
+    SDL_RenderCopy(renderer_bath, tex_candle_bath, NULL, &rect_candle_bath);
     SDL_RenderCopy(renderer_bath, tex_mirror, NULL, &rect_mirror);
-    SDL_RenderCopy(renderer_bath, tex_shelf_wall, NULL, &rect_shelf_wall);
+    SDL_RenderCopy(renderer_bath, tex_shelf_wall_bath, NULL, &rect_shelf_wall_bath);
     SDL_RenderCopy(renderer_bath, tex_sink, NULL, &rect_sink);
     SDL_RenderCopy(renderer_bath, tex_toilet, NULL, &rect_toilet);
     SDL_RenderCopy(renderer_bath, tex_toilet, NULL, &rect_toilet_2);
@@ -407,7 +405,7 @@ void remove_object_bath(char *letters) {
 
 	if (!(strcmp(letters, "bedside table"))) {
         r = rand() % 2;
-		if (r == 0) rect_bedside_table.x = -1000;
+		if (r == 0) rect_bedside_table_bath.x = -1000;
 		if (r == 1) rect_bedside_table_2.x = -1000;
     }
 
@@ -436,7 +434,7 @@ void remove_object_bath(char *letters) {
 		rect_carpet_yellow.x = -1000;
 
 	if (!(strcmp(letters, "end table")))
-		rect_end_table.x = -1000;
+		rect_end_table_bath.x = -1000;
 
 	if (!(strcmp(letters, "minicup gray"))) {
         r = rand() % 2;
@@ -448,13 +446,13 @@ void remove_object_bath(char *letters) {
 		rect_minicup_red.x = -1000;
 
 	if (!(strcmp(letters, "candle")))
-		rect_candle.x = -1000;
+		rect_candle_bath.x = -1000;
 
 	if (!(strcmp(letters, "mirror")))
 		rect_mirror.x = -1000;
 
 	if (!(strcmp(letters, "shelf wall")))
-		rect_shelf_wall.x = -1000;
+		rect_shelf_wall_bath.x = -1000;
 
 	if (!(strcmp(letters, "sink")))
 		rect_sink.x = -1000;
@@ -475,20 +473,23 @@ void remove_object_bath(char *letters) {
 		rect_washing_machine.x = -1000;
 }
 
-int bath(const int width, const int height) {
+void bath(const int width, const int height) {
+    double time;
     char letters[100];
 	int enter = 0,
 		count = 0;
     
-    init_bath("Bath", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, false);
+    init_bath("Bath", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height);
     
-    while (flag_IsRunning) {
+    while (IsRunning_bath) {
+        time = SDL_GetTicks();
+		if (time >= 60000) break;
         enter = 0;
         SDL_Event event;
         SDL_PollEvent(&event);
         switch(event.type) {
             case SDL_QUIT:
-                flag_IsRunning = false;
+                IsRunning_bath = false;
                 break;
 
             case SDL_KEYDOWN:
@@ -518,6 +519,4 @@ int bath(const int width, const int height) {
     
     lose(width, height);
     clean(window_bath, renderer_bath);
-    
-    return 0;
 } 

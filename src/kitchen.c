@@ -1,15 +1,15 @@
 #include "../inc/header.h"
 
-bool flag_IsRunning;
+bool IsRunning_kitchen;
 
-SDL_Window *window;  
-SDL_Renderer *renderer;
+SDL_Window *window_kitchen;  
+SDL_Renderer *renderer_kitchen;
 
-SDL_Texture *tex_wall;
-SDL_Rect rect_wall;
+SDL_Texture *tex_wall_kitchen;
+SDL_Rect rect_wall_kitchen;
 
-SDL_Texture *tex_floor;
-SDL_Rect rect_floor;
+SDL_Texture *tex_floor_kitchen;
+SDL_Rect rect_floor_kitchen;
 
 SDL_Texture *tex_table_set;
 SDL_Rect rect_table_set;
@@ -21,8 +21,8 @@ SDL_Texture *tex_cup;
 SDL_Rect rect_cup;
 SDL_Rect rect_cup2;
 
-SDL_Texture *tex_candle;
-SDL_Rect rect_candle;
+SDL_Texture *tex_candle_kitchen;
+SDL_Rect rect_candle_kitchen;
 
 SDL_Texture *tex_fridge;
 SDL_Rect rect_fridge;
@@ -31,13 +31,13 @@ SDL_Texture *tex_kitchen_table;
 SDL_Rect rect_kitchen_table;
 SDL_Rect rect_kitchen_table2;
 
-SDL_Texture *tex_shelf_wall;
-SDL_Rect rect_shelf_wall;
+SDL_Texture *tex_shelf_wall_kitchen;
+SDL_Rect rect_shelf_wall_kitchen;
 SDL_Rect rect_shelf_wall2;
 SDL_Rect rect_shelf_wall3;
 
-SDL_Texture *tex_bedside_table;
-SDL_Rect rect_bedside_table;
+SDL_Texture *tex_bedside_table_kitchen;
+SDL_Rect rect_bedside_table_kitchen;
 
 SDL_Texture *tex_picture_flowers;
 SDL_Rect rect_picture_flowers;
@@ -67,8 +67,8 @@ SDL_Rect rect_fish2;
 SDL_Texture *tex_sofa;
 SDL_Rect rect_sofa;
 
-SDL_Texture *tex_end_table;
-SDL_Rect rect_end_table;
+SDL_Texture *tex_end_table_kitchen;
+SDL_Rect rect_end_table_kitchen;
 
 SDL_Texture *tex_flower_pot;
 SDL_Rect rect_flower_pot;
@@ -88,45 +88,42 @@ SDL_Rect rect_donut_red;
 SDL_Texture *tex_sock_ucode;
 SDL_Rect rect_sock_ucode;
 
-void init(const char *title, int x, int y, int width, int height, bool fullscreen) {
+void init_kitchen(const char *title, int x, int y, int width, int height) {
     srand(time(0));
 	int randomNum = rand() % 4;
-    int flags = 0;
-    if (fullscreen) {
-        flags = SDL_WINDOW_FULLSCREEN;
-    }
+
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         printf("Sybsystems Initialised Successfully\n");
-	window = SDL_CreateWindow(title, x, y, width, height, flags);
-	if (window) {
+	window_kitchen = SDL_CreateWindow(title, x, y, width, height, 0);
+	if (window_kitchen) {
         printf("Window created successfully\n");
 	}
-	renderer = SDL_CreateRenderer(window, -1, 0);
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	if (renderer) {
+	renderer_kitchen = SDL_CreateRenderer(window_kitchen, -1, 0);
+	SDL_SetRenderDrawColor(renderer_kitchen, 255, 255, 255, 255);
+	if (renderer_kitchen) {
         printf("Renderer created successfully\n");
 	}
-	flag_IsRunning = true;
+	IsRunning_kitchen = true;
     }
     
-    rect_wall.w = 800;
-    rect_wall.h = 300;
-    tex_wall = IMG_LoadTexture(renderer, "resource/images/Kitchen/wall.png");
-    if (!tex_wall)
+    rect_wall_kitchen.w = 800;
+    rect_wall_kitchen.h = 300;
+    tex_wall_kitchen = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/wall.png");
+    if (!tex_wall_kitchen)
         printf("%s\n", SDL_GetError());
 
-    rect_floor.y = 300;
-    rect_floor.w = 800;
-    rect_floor.h = 300;
-    tex_floor = IMG_LoadTexture(renderer, "resource/images/Kitchen/floor.png");
-    if (!tex_floor)
+    rect_floor_kitchen.y = 300;
+    rect_floor_kitchen.w = 800;
+    rect_floor_kitchen.h = 300;
+    tex_floor_kitchen = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/floor.png");
+    if (!tex_floor_kitchen)
         printf("%s\n", SDL_GetError());
         
     rect_table_set.x = 103;
     rect_table_set.y = 407;
     rect_table_set.w = 252;
     rect_table_set.h = 136;
-    tex_table_set = IMG_LoadTexture(renderer, "resource/images/Kitchen/table_set.png");
+    tex_table_set = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/table_set.png");
     if (!tex_table_set)
         printf("%s\n", SDL_GetError());
         
@@ -134,7 +131,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_minicup.y = 427;
     rect_minicup.w = 18;
     rect_minicup.h = 20;
-    tex_minicup = IMG_LoadTexture(renderer, "resource/images/Kitchen/minicup.png");
+    tex_minicup = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/minicup.png");
     if (!tex_table_set)
         printf("%s\n", SDL_GetError());
 
@@ -142,7 +139,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_cup.y = 443;
     rect_cup.w = 21;
     rect_cup.h = 17;
-    tex_cup = IMG_LoadTexture(renderer, "resource/images/Kitchen/cup.png");
+    tex_cup = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/cup.png");
     if (!tex_cup)
         printf("%s\n", SDL_GetError());
         
@@ -150,23 +147,23 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_cup2.y = 471;
     rect_cup2.w = 21;
     rect_cup2.h = 20;
-    tex_cup = IMG_LoadTexture(renderer, "resource/images/Kitchen/cup.png");
+    tex_cup = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/cup.png");
     if (!tex_cup)
         printf("%s\n", SDL_GetError());
     
-    rect_candle.x = 215;
-    rect_candle.y = 444;
-    rect_candle.w = 28;
-    rect_candle.h = 32;
-    tex_candle = IMG_LoadTexture(renderer, "resource/images/Kitchen/candle.png");
-    if (!tex_candle)
+    rect_candle_kitchen.x = 215;
+    rect_candle_kitchen.y = 444;
+    rect_candle_kitchen.w = 28;
+    rect_candle_kitchen.h = 32;
+    tex_candle_kitchen = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/candle.png");
+    if (!tex_candle_kitchen)
         printf("%s\n", SDL_GetError());
         
     rect_fridge.x = 8;
     rect_fridge.y = 197;
     rect_fridge.w = 110;
     rect_fridge.h = 135;
-    tex_fridge = IMG_LoadTexture(renderer, "resource/images/Kitchen/fridge.png");
+    tex_fridge = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/fridge.png");
     if (!tex_fridge)
         printf("%s\n", SDL_GetError());
         
@@ -174,7 +171,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_kitchen_table.y = 222;
     rect_kitchen_table.w = 140;
     rect_kitchen_table.h = 103;
-    tex_kitchen_table = IMG_LoadTexture(renderer, "resource/images/Kitchen/kitchen_table.png");
+    tex_kitchen_table = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/kitchen_table.png");
     if (!tex_kitchen_table)
         printf("%s\n", SDL_GetError());
 
@@ -185,43 +182,43 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     if (!tex_kitchen_table)
         printf("%s\n", SDL_GetError());
 
-    rect_shelf_wall.x = 117;
-    rect_shelf_wall.y = 142;
-    rect_shelf_wall.w = 100;
-    rect_shelf_wall.h = 51;
-    tex_shelf_wall = IMG_LoadTexture(renderer, "resource/images/Kitchen/shelf_wall.png");
-    if (!tex_shelf_wall)
+    rect_shelf_wall_kitchen.x = 117;
+    rect_shelf_wall_kitchen.y = 142;
+    rect_shelf_wall_kitchen.w = 100;
+    rect_shelf_wall_kitchen.h = 51;
+    tex_shelf_wall_kitchen = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/shelf_wall.png");
+    if (!tex_shelf_wall_kitchen)
         printf("%s\n", SDL_GetError());
         
     rect_shelf_wall2.x = 225;
     rect_shelf_wall2.y = 142;
     rect_shelf_wall2.w = 100;
     rect_shelf_wall2.h = 51;
-    tex_shelf_wall = IMG_LoadTexture(renderer, "resource/images/Kitchen/shelf_wall.png");
-    if (!tex_shelf_wall)
+    tex_shelf_wall_kitchen = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/shelf_wall.png");
+    if (!tex_shelf_wall_kitchen)
         printf("%s\n", SDL_GetError());
 
     rect_shelf_wall3.x = 339;
     rect_shelf_wall3.y = 142;
     rect_shelf_wall3.w = 100;
     rect_shelf_wall3.h = 51;
-    tex_shelf_wall = IMG_LoadTexture(renderer, "resource/images/Kitchen/shelf_wall.png");
-    if (!tex_shelf_wall)
+    tex_shelf_wall_kitchen = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/shelf_wall.png");
+    if (!tex_shelf_wall_kitchen)
         printf("%s\n", SDL_GetError());
 
-    rect_bedside_table.x = 728;
-    rect_bedside_table.y = 260;
-    rect_bedside_table.w = 65;
-    rect_bedside_table.h = 67;
-    tex_bedside_table = IMG_LoadTexture(renderer, "resource/images/Kitchen/bedside_table.png");
-    if (!tex_bedside_table)
+    rect_bedside_table_kitchen.x = 728;
+    rect_bedside_table_kitchen.y = 260;
+    rect_bedside_table_kitchen.w = 65;
+    rect_bedside_table_kitchen.h = 67;
+    tex_bedside_table_kitchen = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/bedside_table.png");
+    if (!tex_bedside_table_kitchen)
         printf("%s\n", SDL_GetError());
 
     rect_picture_flowers.x = 545;
     rect_picture_flowers.y = 123;
     rect_picture_flowers.w = 70;
     rect_picture_flowers.h = 80;
-    tex_picture_flowers = IMG_LoadTexture(renderer, "resource/images/Kitchen/picture_flowers.png");
+    tex_picture_flowers = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/picture_flowers.png");
     if (!tex_picture_flowers)
         printf("%s\n", SDL_GetError());
 
@@ -229,7 +226,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_window.y = 98;
     rect_window.w = 100;
     rect_window.h = 95;
-    tex_window = IMG_LoadTexture(renderer, "resource/images/Kitchen/window.png");
+    tex_window = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/window.png");
     if (!tex_window)
         printf("%s\n", SDL_GetError());
 
@@ -237,7 +234,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_round_table.y = 338;
     rect_round_table.w = 105;
     rect_round_table.h = 92;
-    tex_round_table = IMG_LoadTexture(renderer, "resource/images/Kitchen/round_table.png");
+    tex_round_table = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/round_table.png");
     if (!tex_round_table)
         printf("%s\n", SDL_GetError());
 
@@ -245,7 +242,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_plates.y = 357;
     rect_plates.w = 42;
     rect_plates.h = 40;
-    tex_plates = IMG_LoadTexture(renderer, "resource/images/Kitchen/plates.png");
+    tex_plates = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/plates.png");
     if (!tex_plates)
         printf("%s\n", SDL_GetError());
 
@@ -253,7 +250,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_phone.y = 243;
     rect_phone.w = 34;
     rect_phone.h = 34;
-    tex_phone = IMG_LoadTexture(renderer, "resource/images/Kitchen/phone.png");
+    tex_phone = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/phone.png");
     if (!tex_phone)
         printf("%s\n", SDL_GetError());
 
@@ -261,7 +258,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_chair_left.y = 360;
     rect_chair_left.w = 31;
     rect_chair_left.h = 55;
-    tex_chair_left = IMG_LoadTexture(renderer, "resource/images/Kitchen/chair_left.png");
+    tex_chair_left = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/chair_left.png");
     if (!tex_chair_left)
         printf("%s\n", SDL_GetError());
         
@@ -269,7 +266,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_chair_right.y = 360;
     rect_chair_right.w = 33;
     rect_chair_right.h = 55;
-    tex_chair_right = IMG_LoadTexture(renderer, "resource/images/Kitchen/chair_right.png");
+    tex_chair_right = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/chair_right.png");
     if (!tex_chair_right)
         printf("%s\n", SDL_GetError());
 
@@ -277,7 +274,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_fish.y = 346;
     rect_fish.w = 32;
     rect_fish.h = 22;
-    tex_fish = IMG_LoadTexture(renderer, "resource/images/Kitchen/fish.png");
+    tex_fish = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/fish.png");
     if (!tex_fish)
         printf("%s\n", SDL_GetError());
 
@@ -285,7 +282,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_fish2.y = 363;
     rect_fish2.w = 32;
     rect_fish2.h = 20;
-    tex_fish = IMG_LoadTexture(renderer, "resource/images/Kitchen/fish.png");
+    tex_fish = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/fish.png");
     if (!tex_fish)
         printf("%s\n", SDL_GetError());
 
@@ -293,23 +290,23 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_sofa.y = 234;
     rect_sofa.w = 205;
     rect_sofa.h = 95;
-    tex_sofa = IMG_LoadTexture(renderer, "resource/images/Kitchen/sofa.png");
+    tex_sofa = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/sofa.png");
     if (!tex_sofa)
         printf("%s\n", SDL_GetError());
     
-    rect_end_table.x = 685;
-    rect_end_table.y = 505;
-    rect_end_table.w = 95;
-    rect_end_table.h = 75;
-    tex_end_table = IMG_LoadTexture(renderer, "resource/images/Kitchen/end_table.png");
-    if (!tex_end_table)
+    rect_end_table_kitchen.x = 685;
+    rect_end_table_kitchen.y = 505;
+    rect_end_table_kitchen.w = 95;
+    rect_end_table_kitchen.h = 75;
+    tex_end_table_kitchen = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/end_table.png");
+    if (!tex_end_table_kitchen)
         printf("%s\n", SDL_GetError()); 
 
     rect_flower_pot.x = 685;
     rect_flower_pot.y = 496;
     rect_flower_pot.w = 65;
     rect_flower_pot.h = 40;
-    tex_flower_pot = IMG_LoadTexture(renderer, "resource/images/Kitchen/flower_pot.png");
+    tex_flower_pot = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/flower_pot.png");
     if (!tex_flower_pot)
         printf("%s\n", SDL_GetError()); 
         
@@ -317,15 +314,15 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_lamp.y = 483;
     rect_lamp.w = 30;
     rect_lamp.h = 44;
-    tex_lamp = IMG_LoadTexture(renderer, "resource/images/Kitchen/lamp.png");
+    tex_lamp = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/lamp.png");
     if (!tex_lamp)
         printf("%s\n", SDL_GetError());
         
-    rect_shelves_with_dishes.x = 747;
-    rect_shelves_with_dishes.y = 483;
-    rect_shelves_with_dishes.w = 30;
-    rect_shelves_with_dishes.h = 44;
-    tex_shelves_with_dishes = IMG_LoadTexture(renderer, "resource/images/Kitchen/shelves_with_dishes.png");
+    rect_shelves_with_dishes.x = 444;
+    rect_shelves_with_dishes.y = 203;
+    rect_shelves_with_dishes.w = 80;
+    rect_shelves_with_dishes.h = 122;
+    tex_shelves_with_dishes = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/shelves_with_dishes.png");
     if (!tex_shelves_with_dishes)
         printf("%s\n", SDL_GetError());              
 
@@ -333,7 +330,7 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_donut_orange.y = 453;
     rect_donut_orange.w = 16;
     rect_donut_orange.h = 14;
-    tex_donut_orange = IMG_LoadTexture(renderer, "resource/images/Kitchen/donut_orange.png");
+    tex_donut_orange = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/donut_orange.png");
     if (!tex_donut_orange)
         printf("%s\n", SDL_GetError());  
         
@@ -341,74 +338,75 @@ void init(const char *title, int x, int y, int width, int height, bool fullscree
     rect_donut_red.y = 453;
     rect_donut_red.w = 16;
     rect_donut_red.h = 14;
-    tex_donut_red = IMG_LoadTexture(renderer, "resource/images/Kitchen/donut_red.png");
+    tex_donut_red = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/donut_red.png");
     if (!tex_donut_red)
         printf("%s\n", SDL_GetError());  
 
     if (randomNum == 0) {
-        rect_sock_ucode.x = 53;
-        rect_sock_ucode.y = 241;
-        rect_sock_ucode.w = 45;
-        rect_sock_ucode.h = 66;
+        rect_sock_ucode.x = 165;
+        rect_sock_ucode.y = 264;
+        rect_sock_ucode.w = 40;
+        rect_sock_ucode.h = 60;
     }
     if (randomNum == 1) {
-        rect_sock_ucode.x = 623;
-        rect_sock_ucode.y = 45;
-        rect_sock_ucode.w = 45;
-        rect_sock_ucode.h = 66;
+        rect_sock_ucode.x = 560;
+        rect_sock_ucode.y = 133;
+        rect_sock_ucode.w = 40;
+        rect_sock_ucode.h = 60;
     }
     else if (randomNum == 2) {
-        rect_sock_ucode.x = 715;
-        rect_sock_ucode.y = 505;
-        rect_sock_ucode.w = 45;
-        rect_sock_ucode.h = 66;
+        rect_sock_ucode.x = 614;
+        rect_sock_ucode.y = 247;
+        rect_sock_ucode.w = 40;
+        rect_sock_ucode.h = 60;
     }
     else if (randomNum == 3) {
-        rect_sock_ucode.x = 616;
-        rect_sock_ucode.y = 342;
-        rect_sock_ucode.w = 45;
-        rect_sock_ucode.h = 66;
+        rect_sock_ucode.x = 695;
+        rect_sock_ucode.y = 505;
+        rect_sock_ucode.w = 40;
+        rect_sock_ucode.h = 60;
     }
-    tex_sock_ucode = IMG_LoadTexture(renderer, "resource/images/Kitchen/sock_ucode 1.png");
-    if (!tex_donut_orange)
-        printf("%s\n", SDL_GetError()); 
+    tex_sock_ucode = IMG_LoadTexture(renderer_kitchen, "resource/im/kitchen/sock_ucode.png");
+    if (!tex_sock_ucode)
+        printf("%s\n", SDL_GetError());
 }
 
-void render() {
-    SDL_RenderClear(renderer);
+void render_kitchen(void) {
+    SDL_RenderClear(renderer_kitchen);
     
-    SDL_RenderCopy(renderer, tex_wall, NULL, &rect_wall);
-    SDL_RenderCopy(renderer, tex_floor, NULL, &rect_floor);
-    SDL_RenderCopy(renderer, tex_table_set, NULL, &rect_table_set);
-    SDL_RenderCopy(renderer, tex_minicup, NULL, &rect_minicup);
-    SDL_RenderCopy(renderer, tex_cup, NULL, &rect_cup);
-    SDL_RenderCopy(renderer, tex_cup, NULL, &rect_cup2);
-    SDL_RenderCopy(renderer, tex_candle, NULL, &rect_candle);
-    SDL_RenderCopy(renderer, tex_fridge, NULL, &rect_fridge);
-    SDL_RenderCopy(renderer, tex_kitchen_table, NULL, &rect_kitchen_table);
-    SDL_RenderCopy(renderer, tex_kitchen_table, NULL, &rect_kitchen_table2);
-    SDL_RenderCopy(renderer, tex_shelf_wall, NULL, &rect_shelf_wall);
-    SDL_RenderCopy(renderer, tex_shelf_wall, NULL, &rect_shelf_wall2);
-    SDL_RenderCopy(renderer, tex_shelf_wall, NULL, &rect_shelf_wall3);
-    SDL_RenderCopy(renderer, tex_bedside_table, NULL, &rect_bedside_table);
-    SDL_RenderCopy(renderer, tex_picture_flowers, NULL, &rect_picture_flowers);
-    SDL_RenderCopy(renderer, tex_window, NULL, &rect_window);
-    SDL_RenderCopy(renderer, tex_round_table, NULL, &rect_round_table);
-    SDL_RenderCopy(renderer, tex_plates, NULL, &rect_plates);
-    SDL_RenderCopy(renderer, tex_phone, NULL, &rect_phone);
-    SDL_RenderCopy(renderer, tex_chair_left, NULL, &rect_chair_left);
-    SDL_RenderCopy(renderer, tex_chair_right, NULL, &rect_chair_right);
-    SDL_RenderCopy(renderer, tex_fish, NULL, &rect_fish);
-    SDL_RenderCopy(renderer, tex_fish, NULL, &rect_fish2);
-    SDL_RenderCopy(renderer, tex_sofa, NULL, &rect_sofa);
-    SDL_RenderCopy(renderer, tex_end_table, NULL, &rect_end_table);
-    SDL_RenderCopy(renderer, tex_flower_pot, NULL, &rect_flower_pot);
-    SDL_RenderCopy(renderer, tex_lamp, NULL, &rect_lamp);
-    SDL_RenderCopy(renderer, tex_shelves_with_dishes, NULL, &rect_shelves_with_dishes);
-    SDL_RenderCopy(renderer, tex_donut_orange, NULL, &rect_donut_orange);
-    SDL_RenderCopy(renderer, tex_donut_red, NULL, &rect_donut_red);
+    SDL_RenderCopy(renderer_kitchen, tex_wall_kitchen, NULL, &rect_wall_kitchen);
+    SDL_RenderCopy(renderer_kitchen, tex_floor_kitchen, NULL, &rect_floor_kitchen);
+    SDL_RenderCopy(renderer_kitchen, tex_sock_ucode, NULL, &rect_sock_ucode);
+    SDL_RenderCopy(renderer_kitchen, tex_table_set, NULL, &rect_table_set);
+    SDL_RenderCopy(renderer_kitchen, tex_minicup, NULL, &rect_minicup);
+    SDL_RenderCopy(renderer_kitchen, tex_cup, NULL, &rect_cup);
+    SDL_RenderCopy(renderer_kitchen, tex_cup, NULL, &rect_cup2);
+    SDL_RenderCopy(renderer_kitchen, tex_candle_kitchen, NULL, &rect_candle_kitchen);
+    SDL_RenderCopy(renderer_kitchen, tex_fridge, NULL, &rect_fridge);
+    SDL_RenderCopy(renderer_kitchen, tex_kitchen_table, NULL, &rect_kitchen_table);
+    SDL_RenderCopy(renderer_kitchen, tex_kitchen_table, NULL, &rect_kitchen_table2);
+    SDL_RenderCopy(renderer_kitchen, tex_shelf_wall_kitchen, NULL, &rect_shelf_wall_kitchen);
+    SDL_RenderCopy(renderer_kitchen, tex_shelf_wall_kitchen, NULL, &rect_shelf_wall2);
+    SDL_RenderCopy(renderer_kitchen, tex_shelf_wall_kitchen, NULL, &rect_shelf_wall3);
+    SDL_RenderCopy(renderer_kitchen, tex_bedside_table_kitchen, NULL, &rect_bedside_table_kitchen);
+    SDL_RenderCopy(renderer_kitchen, tex_picture_flowers, NULL, &rect_picture_flowers);
+    SDL_RenderCopy(renderer_kitchen, tex_window, NULL, &rect_window);
+    SDL_RenderCopy(renderer_kitchen, tex_round_table, NULL, &rect_round_table);
+    SDL_RenderCopy(renderer_kitchen, tex_plates, NULL, &rect_plates);
+    SDL_RenderCopy(renderer_kitchen, tex_phone, NULL, &rect_phone);
+    SDL_RenderCopy(renderer_kitchen, tex_chair_left, NULL, &rect_chair_left);
+    SDL_RenderCopy(renderer_kitchen, tex_chair_right, NULL, &rect_chair_right);
+    SDL_RenderCopy(renderer_kitchen, tex_fish, NULL, &rect_fish);
+    SDL_RenderCopy(renderer_kitchen, tex_fish, NULL, &rect_fish2);
+    SDL_RenderCopy(renderer_kitchen, tex_sofa, NULL, &rect_sofa);
+    SDL_RenderCopy(renderer_kitchen, tex_end_table_kitchen, NULL, &rect_end_table_kitchen);
+    SDL_RenderCopy(renderer_kitchen, tex_flower_pot, NULL, &rect_flower_pot);
+    SDL_RenderCopy(renderer_kitchen, tex_lamp, NULL, &rect_lamp);
+    SDL_RenderCopy(renderer_kitchen, tex_shelves_with_dishes, NULL, &rect_shelves_with_dishes);
+    SDL_RenderCopy(renderer_kitchen, tex_donut_orange, NULL, &rect_donut_orange);
+    SDL_RenderCopy(renderer_kitchen, tex_donut_red, NULL, &rect_donut_red);
     
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer_kitchen);
 }
 
 void remove_object_kitchen(char *letters) {
@@ -429,7 +427,7 @@ void remove_object_kitchen(char *letters) {
 		rect_minicup.x = -1000;
 
 	if (!(strcmp(letters, "candle")))
-		rect_candle.x = -1000;
+		rect_candle_kitchen.x = -1000;
 
 	if (!(strcmp(letters, "fish")))
 		rect_fish.x = -1000;
@@ -457,16 +455,16 @@ void remove_object_kitchen(char *letters) {
 
 	if (!(strcmp(letters, "shelf wall"))) {
 		r = rand() % 3;
-		if (r == 0) rect_shelf_wall.x = -1000;
+		if (r == 0) rect_shelf_wall_kitchen.x = -1000;
 		if (r == 1) rect_shelf_wall2.x = -1000;
-		if (r == 1) rect_shelf_wall3.x = -1000;
+		if (r == 2) rect_shelf_wall3.x = -1000;
 	}
 
 	if (!(strcmp(letters, "bedside table")))
-		rect_bedside_table.x = -1000;
+		rect_bedside_table_kitchen.x = -1000;
 
 	if (!(strcmp(letters, "end table")))
-		rect_end_table.x = -1000;
+		rect_end_table_kitchen.x = -1000;
 
 	if (!(strcmp(letters, "picture flowers")))
 		rect_picture_flowers.x = -1000;
@@ -490,28 +488,31 @@ void remove_object_kitchen(char *letters) {
 		rect_fridge.x = -1000;
 }
 
-void clean() {
-	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
+/*void clean() {
+	SDL_DestroyWindow(window_kitchen);
+	SDL_DestroyRenderer(renderer_kitchen);
 	SDL_Quit();
 	printf("Game Cleaned\n");
-}
+}*/
 
-int kitchen(const int width, const int height) {
-	char letters[100];
+void kitchen(const int width, const int height) {
+	double time;
+    char letters[100];
 	int enter = 0,
 		count = 0;
 
-    init("Find the sock", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, false);
+    init_kitchen("Find the sock", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height);
 
-    while (flag_IsRunning) {
+    while (IsRunning_kitchen) {
+        time = SDL_GetTicks();
+		if (time >= 60000) break;
 		enter = 0;
 		SDL_Event event;
 		SDL_PollEvent(&event);
 
 		switch(event.type) {
 			case SDL_QUIT:
-				flag_IsRunning = false;
+				IsRunning_kitchen = false;
 				break;
 			case SDL_KEYDOWN:
 				count = keydown(event, letters, &enter);
@@ -528,11 +529,11 @@ int kitchen(const int width, const int height) {
                     if (SDL_PointInRect(&(SDL_Point){event.button.x, event.button.y}, &rect_sock_ucode)) {
                         //printf("Button RULES clicked!\n");
 						win(width, height);
-                        clean(window, renderer);
+                        clean(window_kitchen, renderer_kitchen);
 						return;
                     }
 		}
-		render();
+		render_kitchen();
 	}
 
 	for (int i = 0; i < count; i++) {
@@ -540,7 +541,5 @@ int kitchen(const int width, const int height) {
 	}
 
     lose(width, height);
-    clean(window, renderer);
-
-    return 0;
+    clean(window_kitchen, renderer_kitchen);
 }

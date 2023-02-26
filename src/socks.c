@@ -1,7 +1,7 @@
 #include "../inc/header.h"
 
 int socks(const int width, const int height) {
-    int rooms = 0;
+    int sock = 0;
 
     SDL_Window *window = game_init("Our game", width, height);
     if (window == NULL) SDL_Quit();
@@ -23,41 +23,38 @@ int socks(const int width, const int height) {
     SDL_Rect rect_wine_sock_name = {156, 509, 171, 24};
     SDL_Rect rect_binary_sock_name = {490, 509, 171, 24};
 
-    SDL_Texture *tex_socks = IMG_LoadTexture(renderer, "images/socks.png");
+    SDL_Texture *tex_socks = IMG_LoadTexture(renderer, "resource/images_b/socks.png");
     if (!tex_socks) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_rope = IMG_LoadTexture(renderer, "images/rope.png");
+    SDL_Texture *tex_rope = IMG_LoadTexture(renderer, "resource/images_b/rope.png");
     if (!tex_rope) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_ucode_sock = IMG_LoadTexture(renderer, "images/ucode_sock.png");
+    SDL_Texture *tex_ucode_sock = IMG_LoadTexture(renderer, "resource/images_b/ucode_sock.png");
     if (!tex_ucode_sock) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_free_sock = IMG_LoadTexture(renderer, "images/free_sock.png");
+    SDL_Texture *tex_free_sock = IMG_LoadTexture(renderer, "resource/images_b/free_sock.png");
     if (!tex_free_sock) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_wine_sock = IMG_LoadTexture(renderer, "images/wine_sock.png");
+    SDL_Texture *tex_wine_sock = IMG_LoadTexture(renderer, "resource/images_b/wine_sock.png");
     if (!tex_wine_sock) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_binary_sock = IMG_LoadTexture(renderer, "images/binary_sock.png");
+    SDL_Texture *tex_binary_sock = IMG_LoadTexture(renderer, "resource/images_b/binary_sock.png");
     if (!tex_binary_sock) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_clothes_pin = IMG_LoadTexture(renderer, "images/clothes_pin.png");
+    SDL_Texture *tex_clothes_pin = IMG_LoadTexture(renderer, "resource/images_b/clothes_pin.png");
     if (!tex_clothes_pin) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_ucode_sock_name = IMG_LoadTexture(renderer, "images/ucode_sock_name.png");
+    SDL_Texture *tex_ucode_sock_name = IMG_LoadTexture(renderer, "resource/images_b/ucode_sock_name.png");
     if (!tex_ucode_sock_name) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_free_sock_name = IMG_LoadTexture(renderer, "images/free_sock_name.png");
+    SDL_Texture *tex_free_sock_name = IMG_LoadTexture(renderer, "resource/images_b/free_sock_name.png");
     if (!tex_free_sock_name) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_wine_sock_name = IMG_LoadTexture(renderer, "images/wine_sock_name.png");
+    SDL_Texture *tex_wine_sock_name = IMG_LoadTexture(renderer, "resource/images_b/wine_sock_name.png");
     if (!tex_wine_sock_name) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_binary_sock_name = IMG_LoadTexture(renderer, "images/binary_sock_name.png");
+    SDL_Texture *tex_binary_sock_name = IMG_LoadTexture(renderer, "resource/images_b/binary_sock_name.png");
     if (!tex_binary_sock_name) printf("%s\n", SDL_GetError());
-    
-    double delta = .0001;
-    double time2 = SDL_GetTicks();
 
     //int x, y;
 
@@ -65,8 +62,6 @@ int socks(const int width, const int height) {
     bool run = true;
     
     while (run) {
-        delta = (SDL_GetTicks() - time2) / 1000;
-        time2 = SDL_GetTicks();
 
         if (SDL_PollEvent(&e)) {
             switch (e.type) {
@@ -76,10 +71,32 @@ int socks(const int width, const int height) {
                 case SDL_QUIT:
                     run = false;
                     break;
-                case SDL_MOUSEMOTION:
-                    /*SDL_GetMouseState(&x, &y);
-                    printf("%d : %d\n", x, y);*/
-                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    printf("mouse button down\n");
+                    if (SDL_PointInRect(&(SDL_Point){e.button.x, e.button.y}, &rect_ucode_sock)) {
+                        sock = 0;
+                        run = false;
+                        printf("room = %d\n", sock);
+                        break;
+                    }
+                    if (SDL_PointInRect(&(SDL_Point){e.button.x, e.button.y}, &rect_free_sock)) {
+                        sock = 1;
+                        run = false;
+                        printf("room = %d\n", sock);
+                        break;
+                    }
+                    if (SDL_PointInRect(&(SDL_Point){e.button.x, e.button.y}, &rect_wine_sock)) {
+                        sock = 2;
+                        run = false;
+                        printf("room = %d\n", sock);
+                        break;
+                    }
+                    if (SDL_PointInRect(&(SDL_Point){e.button.x, e.button.y}, &rect_binary_sock)) {
+                        sock = 3;
+                        run = false;
+                        printf("room = %d\n", sock);
+                        break;
+                    }
             }
         }
 
@@ -106,5 +123,5 @@ int socks(const int width, const int height) {
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    return rooms;
+    return sock;
 }

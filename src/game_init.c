@@ -1,4 +1,4 @@
-#include "header.h"
+#include "../inc/header.h"
 
 SDL_Window *game_init(const char *title, const int width, const int height) {
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {

@@ -5,15 +5,17 @@ void prehistory(const int width, const int height) {
     if (window == NULL) SDL_Quit();
 
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
+
+    /*if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG) {
+    printf("Error initializing SDL2_image: %s\n", IMG_GetError());
+    }*/
     
     SDL_Rect rect_prehistory = {106, 123, 588, 404};
 
-    SDL_Texture *tex_prehistory = IMG_LoadTexture(renderer, "images/prehistory.png");
+    SDL_Texture *tex_prehistory = IMG_LoadTexture(renderer, "resource/images_b/prehistory.png");
     if (!tex_prehistory) printf("%s\n", SDL_GetError());
 
-    
-    double delta = .0001;
-    double time2 = SDL_GetTicks();
+    double time = SDL_GetTicks();
 
     //int x, y;
 
@@ -21,8 +23,9 @@ void prehistory(const int width, const int height) {
     bool run = true;
     
     while (run) {
-        delta = (SDL_GetTicks() - time2) / 1000;
-        time2 = SDL_GetTicks();
+        time = SDL_GetTicks();
+
+        if (time > 7000) break;
 
         if (SDL_PollEvent(&e)) {
             switch (e.type) {
@@ -32,10 +35,6 @@ void prehistory(const int width, const int height) {
                 case SDL_QUIT:
                     run = false;
                     break;
-                case SDL_MOUSEMOTION:
-                    /*SDL_GetMouseState(&x, &y);
-                    printf("%d : %d\n", x, y);*/
-                    break;
             }
         }
 
@@ -44,8 +43,6 @@ void prehistory(const int width, const int height) {
         SDL_RenderCopy(renderer, tex_prehistory, NULL, &rect_prehistory);
         SDL_RenderPresent(renderer);
     }
-
-    SDL_Delay(15000);
     menu(width, height);
     
     SDL_DestroyWindow(window);

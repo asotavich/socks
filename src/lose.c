@@ -9,13 +9,13 @@ void lose(const int width, const int height) {
     SDL_Rect rect_fail = {250, 150, 300, 96};
     SDL_Rect rect_mark = {110, 282, 579, 53};
 
-    SDL_Texture *tex_background = IMG_LoadTexture(renderer, "images/background_socks.png");
+    SDL_Texture *tex_background = IMG_LoadTexture(renderer, "resource/images_b/background_socks.png");
     if (!tex_background) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_fail = IMG_LoadTexture(renderer, "images/fail.png");
+    SDL_Texture *tex_fail = IMG_LoadTexture(renderer, "resource/images_b/fail.png");
     if (!tex_fail) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_mark = IMG_LoadTexture(renderer, "images/mark.png");
+    SDL_Texture *tex_mark = IMG_LoadTexture(renderer, "resource/images_b/mark.png");
     if (!tex_mark) printf("%s\n", SDL_GetError());
     
     double time;
@@ -28,7 +28,7 @@ void lose(const int width, const int height) {
     while (run) {
         //delta = (SDL_GetTicks() - time2) / 1000;
         time = SDL_GetTicks();
-        //if (time > 10000) break;
+        if (time > 100000) break;
 
         if (SDL_PollEvent(&e)) {
             switch (e.type) {
@@ -53,7 +53,8 @@ void lose(const int width, const int height) {
         SDL_RenderPresent(renderer);
     }
 
-    SDL_Delay(7000);
+    //SDL_Delay(7000);
+    menu(width, height);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }

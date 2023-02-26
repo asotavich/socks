@@ -9,53 +9,64 @@ int rooms(const int width, const int height) {
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
     
     SDL_Rect rect_rooms_name = {310, 40, 180, 48};
-    SDL_Rect rect_button_rooms = {325, 48, 150, 48};
+    //SDL_Rect rect_button_rooms = {325, 48, 150, 48};
     SDL_Rect rect_living_room = {50, 128, 300, 225};
     SDL_Rect rect_kitchen = {450, 128, 300, 225};
     SDL_Rect rect_bath = {250, 377, 300, 225};
 
-    SDL_Texture *tex_background = IMG_LoadTexture(renderer, "images/background_socks.png");
+    SDL_Texture *tex_background = IMG_LoadTexture(renderer, "resource/images_b/background_socks.png");
     if (!tex_background) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_rooms_name = IMG_LoadTexture(renderer, "images/rooms_name.png");
+    SDL_Texture *tex_rooms_name = IMG_LoadTexture(renderer, "resource/images_b/rooms_name.png");
     if (!tex_rooms_name) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_button_rooms = IMG_LoadTexture(renderer, "images/button_rooms.png");
-    if (!tex_button_rooms) printf("%s\n", SDL_GetError());
+    //SDL_Texture *tex_button_rooms = IMG_LoadTexture(renderer, "resource/images_b/button_rooms.png");
+    //if (!tex_button_rooms) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_living_room = IMG_LoadTexture(renderer, "images/living_room.png");
+    SDL_Texture *tex_living_room = IMG_LoadTexture(renderer, "resource/images_b/living_room.png");
     if (!tex_living_room) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_kitchen = IMG_LoadTexture(renderer, "images/kitchen.png");
+    SDL_Texture *tex_kitchen = IMG_LoadTexture(renderer, "resource/images_b/kitchen.png");
     if (!tex_kitchen) printf("%s\n", SDL_GetError());
 
-    SDL_Texture *tex_bath = IMG_LoadTexture(renderer, "images/bath.png");
+    SDL_Texture *tex_bath = IMG_LoadTexture(renderer, "resource/images_b/bath.png");
     if (!tex_bath) printf("%s\n", SDL_GetError());
-    
-    double time;
+
 
     SDL_Event e;
     bool run = true;
     
     while (run) {
-        time = SDL_GetTicks();
-        if (time > 10000) break;
-
         if (SDL_PollEvent(&e)) {
             switch (e.type) {
                 case SDL_QUIT:
+                    printf("quit\n");
                     run = false;
+                    if (run == false)
+                        printf("room = %d\n", room);
                     break;
                 case SDL_MOUSEBUTTONDOWN:
+                    printf("mouse button down\n");
                     if (SDL_PointInRect(&(SDL_Point){e.button.x, e.button.y}, &rect_living_room)) {
                         room = 0;
+                        run = false;
+                        printf("room = %d\n", room);
+                        break;
                     }
                     if (SDL_PointInRect(&(SDL_Point){e.button.x, e.button.y}, &rect_kitchen)) {
                         room = 1;
+                        run = false;
+                        printf("room = %d\n", room);
+                        break;
                     }
                     if (SDL_PointInRect(&(SDL_Point){e.button.x, e.button.y}, &rect_bath)) {
                         room = 2;
+                        run = false;
+                        printf("room = %d\n", room);
+                        break;
                     }
+                default:
+                    break;
             }
         }
 
@@ -63,13 +74,13 @@ int rooms(const int width, const int height) {
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, tex_background, NULL, NULL);
         SDL_RenderCopy(renderer, tex_rooms_name, NULL, &rect_rooms_name);
-        SDL_RenderCopy(renderer, tex_button_rooms, NULL, &rect_button_rooms);
+        //SDL_RenderCopy(renderer, tex_button_rooms, NULL, &rect_button_rooms);
         SDL_RenderCopy(renderer, tex_living_room, NULL, &rect_living_room);
         SDL_RenderCopy(renderer, tex_kitchen, NULL, &rect_kitchen);
         SDL_RenderCopy(renderer, tex_bath, NULL, &rect_bath);
         SDL_RenderPresent(renderer);
     }
-    
+    printf("rooms quit\n");
     SDL_DestroyWindow(window);
     SDL_Quit();
 

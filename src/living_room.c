@@ -1,8 +1,8 @@
 #include "../inc/header.h"
 
-SDL_Window *window;
+SDL_Window *window_living_room;
 
-SDL_Renderer *renderer;
+SDL_Renderer *renderer_living_room;
 
 SDL_Texture* wallTex;
 SDL_Rect srcWallR, destWallR;
@@ -117,124 +117,111 @@ SDL_Rect srcTypeHereR, destTypeHereR;
 
 SDL_Surface* text = NULL;
 
-//TTF_Font* Sans = TTF_OpenFont("OpenSans-Regular.ttf", 24);
-//SDL_Color Black = {0, 0, 0};
+bool isRunning_living_room;
 
-
-bool isRunning;
-
-bool running() {
-	return isRunning;
+bool running(void) {
+	return isRunning_living_room;
 }
 
-//int cnt = 0;
 int count = 0;
 
-void init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen) {
+void init_living_room(const char *title, int xpos, int ypos, int width, int height) {
 	srand(time(0));
-	int flags = 0;
 	int randomNum = rand() % 3;
-	//TTF_Init();
-	//TTF_Init();
-
-	if (fullscreen) {
-		flags = SDL_WINDOW_FULLSCREEN;
-	}
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
 		printf("Sybsystems Initialised!...\n");
 
-		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
+		window_living_room = SDL_CreateWindow(title, xpos, ypos, width, height, 0);
 
-		if (window) {
+		if (window_living_room) {
 			printf("Window created!\n");
 		}
 
-		renderer = SDL_CreateRenderer(window, -1, 0);
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		renderer_living_room = SDL_CreateRenderer(window_living_room, -1, 0);
+		SDL_SetRenderDrawColor(renderer_living_room, 255, 255, 255, 255);
 
-		if (renderer) {
+		if (renderer_living_room) {
 			printf("Renderer created!\n");
 		}
 
-		isRunning = true;
+		isRunning_living_room = true;
 	}
 
-	SDL_Surface* tmpSurfaceWall = IMG_Load("resource/Images/Living room/Wall.png");
-	SDL_Surface* tmpSurfaceFloor = IMG_Load("resource/Images/Living room/Floor.png");
-	SDL_Surface* tmpSurfaceSockBinary = IMG_Load("resource/Images/Living room/sock_binary 1.png");
-	SDL_Surface* tmpSurfaceTallBookcase = IMG_Load("resource/Images/Living room/tall bookcase 1.png");
-	SDL_Surface* tmpSurfaceBooksOnTheStool = IMG_Load("resource/Images/Living room/books on the stool 1.png");
-	SDL_Surface* tmpSurfaceClock = IMG_Load("resource/Images/Living room/clock 1.png");
-	SDL_Surface* tmpSurfaceCandles = IMG_Load("resource/Images/Living room/Candles.png");
-	SDL_Surface* tmpSurfaceHorizontalStand = IMG_Load("resource/Images/Living room/horizontal stand 1.png");
-	SDL_Surface* tmpSurfaceRadio = IMG_Load("resource/Images/Living room/radio 1.png");
-	SDL_Surface* tmpSurfaceVase = IMG_Load("resource/Images/Living room/vase with pink flowers 1.png");
-	SDL_Surface* tmpSurfaceMinibar = IMG_Load("resource/Images/Living room/minibar 1.png");
-	SDL_Surface* tmpSurfaceSofa = IMG_Load("resource/Images/Living room/sofa 1.png");
-	SDL_Surface* tmpSurfacePlantDark = IMG_Load("resource/Images/Living room/plant dark 1.png");
-	SDL_Surface* tmpSurfaceFireplace = IMG_Load("resource/Images/Living room/fireplace 1.png");
-	SDL_Surface* tmpSurfacePictureRock = IMG_Load("resource/Images/Living room/picture rock 1.png");
-	SDL_Surface* tmpSurfaceRoundClock = IMG_Load("resource/Images/Living room/round clock 1.png");
-	SDL_Surface* tmpSurfaceWriteTableAndChair = IMG_Load("resource/Images/Living room/write table and chair 1.png");
-	SDL_Surface* tmpSurfaceInk = IMG_Load("resource/Images/Living room/ink 1.png");
-	SDL_Surface* tmpSurfaceFortepiano = IMG_Load("resource/Images/Living room/fortepiano 1.png");
-	SDL_Surface* tmpSurfaceRedCarpet = IMG_Load("resource/Images/Living room/red carpet 1.png");
-	SDL_Surface* tmpSurfaceToyHorse = IMG_Load("resource/Images/Living room/toy horse 1.png");
-	SDL_Surface* tmpSurfaceBall = IMG_Load("resource/Images/Living room/ball 1.png");
-	SDL_Surface* tmpSurfaceBigTable = IMG_Load("resource/Images/Living room/big table 1.png");
-	SDL_Surface* tmpSurfaceChairRight1 = IMG_Load("resource/Images/Living room/chair right 1.png");
-	SDL_Surface* tmpSurfaceChairRight2 = IMG_Load("resource/Images/Living room/chair right 2.png");
-	SDL_Surface* tmpSurfaceChairRight3 = IMG_Load("resource/Images/Living room/chair right 3.png");
-	SDL_Surface* tmpSurfaceChairRight4 = IMG_Load("resource/Images/Living room/chair right 4.png");
-	SDL_Surface* tmpSurfaceVaseWithRedFlowers = IMG_Load("resource/Images/Living room/vase with red flowers 1.png");
-	SDL_Surface* tmpSurfaceOpenedOrangeBook = IMG_Load("resource/Images/Living room/opened orange book 1.png");
-	SDL_Surface* tmpSurfacePlates = IMG_Load("resource/Images/Living room/plates 2 1.png");
-	SDL_Surface* tmpSurfaceFish = IMG_Load("resource/Images/Living room/fish 1.png");
-	SDL_Surface* tmpSurfaceYellowTable = IMG_Load("resource/Images/Living room/yellow table 1.png");
-	SDL_Surface* tmpSurfaceWhiteChair1 = IMG_Load("resource/Images/Living room/white chair 1.png");
-	SDL_Surface* tmpSurfaceWhiteChair2 = IMG_Load("resource/Images/Living room/white chair 2.png");
-	SDL_Surface* tmpSurfaceRectangle = IMG_Load("resource/Images/Living room/Rectangle 5.png");
-	SDL_Surface* tmpSurfaceTypeHere = IMG_Load("resource/Images/Living room/Type here.png");
+	SDL_Surface* tmpSurfaceWall = IMG_Load("resource/im/living_room/Wall.png");
+	SDL_Surface* tmpSurfaceFloor = IMG_Load("resource/im/living_room/Floor.png");
+	SDL_Surface* tmpSurfaceSockBinary = IMG_Load("resource/im/living_room/sock_binary_1.png");
+	SDL_Surface* tmpSurfaceTallBookcase = IMG_Load("resource/im/living_room/tall_bookcase_1.png");
+	SDL_Surface* tmpSurfaceBooksOnTheStool = IMG_Load("resource/im/living_room/books_on_the_stool_1.png");
+	SDL_Surface* tmpSurfaceClock = IMG_Load("resource/im/living_room/clock_1.png");
+	SDL_Surface* tmpSurfaceCandles = IMG_Load("resource/im/living_room/Candles.png");
+	SDL_Surface* tmpSurfaceHorizontalStand = IMG_Load("resource/im/living_room/horizontal_stand_1.png");
+	SDL_Surface* tmpSurfaceRadio = IMG_Load("resource/im/living_room/radio_1.png");
+	SDL_Surface* tmpSurfaceVase = IMG_Load("resource/im/living_room/vase_with_pink_flowers_1.png");
+	SDL_Surface* tmpSurfaceMinibar = IMG_Load("resource/im/living_room/minibar_1.png");
+	SDL_Surface* tmpSurfaceSofa = IMG_Load("resource/im/living_room/sofa_1.png");
+	SDL_Surface* tmpSurfacePlantDark = IMG_Load("resource/im/living_room/plant_dark_1.png");
+	SDL_Surface* tmpSurfaceFireplace = IMG_Load("resource/im/living_room/fireplace_1.png");
+	SDL_Surface* tmpSurfacePictureRock = IMG_Load("resource/im/living_room/picture_rock_1.png");
+	SDL_Surface* tmpSurfaceRoundClock = IMG_Load("resource/im/living_room/round_clock_1.png");
+	SDL_Surface* tmpSurfaceWriteTableAndChair = IMG_Load("resource/im/living_room/write_table_and_chair_1.png");
+	SDL_Surface* tmpSurfaceInk = IMG_Load("resource/im/living_room/ink_1.png");
+	SDL_Surface* tmpSurfaceFortepiano = IMG_Load("resource/im/living_room/fortepiano_1.png");
+	SDL_Surface* tmpSurfaceRedCarpet = IMG_Load("resource/im/living_room/red_carpet_1.png");
+	SDL_Surface* tmpSurfaceToyHorse = IMG_Load("resource/im/living_room/toy_horse_1.png");
+	SDL_Surface* tmpSurfaceBall = IMG_Load("resource/im/living_room/ball_1.png");
+	SDL_Surface* tmpSurfaceBigTable = IMG_Load("resource/im/living_room/big_table_1.png");
+	SDL_Surface* tmpSurfaceChairRight1 = IMG_Load("resource/im/living_room/chair_right_1.png");
+	SDL_Surface* tmpSurfaceChairRight2 = IMG_Load("resource/im/living_room/chair_right_2.png");
+	SDL_Surface* tmpSurfaceChairRight3 = IMG_Load("resource/im/living_room/chair_right_3.png");
+	SDL_Surface* tmpSurfaceChairRight4 = IMG_Load("resource/im/living_room/chair_right_4.png");
+	SDL_Surface* tmpSurfaceVaseWithRedFlowers = IMG_Load("resource/im/living_room/vase_with_red_flowers_1.png");
+	SDL_Surface* tmpSurfaceOpenedOrangeBook = IMG_Load("resource/im/living_room/opened_orange_book_1.png");
+	SDL_Surface* tmpSurfacePlates = IMG_Load("resource/im/living_room/plates_2_1.png");
+	SDL_Surface* tmpSurfaceFish = IMG_Load("resource/im/living_room/fish_1.png");
+	SDL_Surface* tmpSurfaceYellowTable = IMG_Load("resource/im/living_room/yellow_table_1.png");
+	SDL_Surface* tmpSurfaceWhiteChair1 = IMG_Load("resource/im/living_room/white_chair_1.png");
+	SDL_Surface* tmpSurfaceWhiteChair2 = IMG_Load("resource/im/living_room/white_chair_2.png");
+	SDL_Surface* tmpSurfaceRectangle = IMG_Load("resource/im/living_room/Rectangle_5.png");
+	SDL_Surface* tmpSurfaceTypeHere = IMG_Load("resource/im/living_room/Type_here.png");
 	//SDL_Surface* tmpSurfaceMessage = TTF_RenderText_Solid(Sans, "Type text here", Black);
 
-	wallTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceWall);
-	floorTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceFloor);
-	sockBinaryTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceSockBinary);
-	tallBookcaseTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceTallBookcase);
-	booksOnTheStoolTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceBooksOnTheStool);
-	clockTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceClock);
-	candlesTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceCandles);
-	horizontalStandTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceHorizontalStand);
-	radioTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceRadio);
-	vaseTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceVase);
-	minibarTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceMinibar);
-	sofaTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceSofa);
-	plantDarkTex = SDL_CreateTextureFromSurface(renderer, tmpSurfacePlantDark);
-	fireplaceTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceFireplace);
-	pictureRockTex = SDL_CreateTextureFromSurface(renderer, tmpSurfacePictureRock);
-	roundClockTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceRoundClock);
-	writeTableAndChairTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceWriteTableAndChair);
-	inkTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceInk);
-	fortepianoTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceFortepiano);
-	redCarpetTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceRedCarpet);
-	toyHorseTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceToyHorse);
-	ballTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceBall);
-	bigTableTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceBigTable);
-	chairRight1Tex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceChairRight1);
-	chairRight2Tex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceChairRight2);
-	chairRight3Tex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceChairRight3);
-	chairRight4Tex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceChairRight4);
-	vaseWithRedFlowersTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceVaseWithRedFlowers);
-	openedOrangeBookTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceOpenedOrangeBook);
-	platesTex = SDL_CreateTextureFromSurface(renderer, tmpSurfacePlates);
-	fishTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceFish);
-	yellowTableTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceYellowTable);
-	whiteChair1Tex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceWhiteChair1);
-	whiteChair2Tex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceWhiteChair2);
-	rectangleTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceRectangle);
-	typeHereTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceTypeHere);
-	//messageTex = SDL_CreateTextureFromSurface(renderer, tmpSurfaceMessage);
+	wallTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceWall);
+	floorTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceFloor);
+	sockBinaryTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceSockBinary);
+	tallBookcaseTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceTallBookcase);
+	booksOnTheStoolTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceBooksOnTheStool);
+	clockTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceClock);
+	candlesTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceCandles);
+	horizontalStandTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceHorizontalStand);
+	radioTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceRadio);
+	vaseTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceVase);
+	minibarTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceMinibar);
+	sofaTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceSofa);
+	plantDarkTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfacePlantDark);
+	fireplaceTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceFireplace);
+	pictureRockTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfacePictureRock);
+	roundClockTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceRoundClock);
+	writeTableAndChairTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceWriteTableAndChair);
+	inkTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceInk);
+	fortepianoTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceFortepiano);
+	redCarpetTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceRedCarpet);
+	toyHorseTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceToyHorse);
+	ballTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceBall);
+	bigTableTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceBigTable);
+	chairRight1Tex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceChairRight1);
+	chairRight2Tex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceChairRight2);
+	chairRight3Tex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceChairRight3);
+	chairRight4Tex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceChairRight4);
+	vaseWithRedFlowersTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceVaseWithRedFlowers);
+	openedOrangeBookTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceOpenedOrangeBook);
+	platesTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfacePlates);
+	fishTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceFish);
+	yellowTableTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceYellowTable);
+	whiteChair1Tex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceWhiteChair1);
+	whiteChair2Tex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceWhiteChair2);
+	rectangleTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceRectangle);
+	typeHereTex = SDL_CreateTextureFromSurface(renderer_living_room, tmpSurfaceTypeHere);
 
 	SDL_FreeSurface(tmpSurfaceWall);
 	SDL_FreeSurface(tmpSurfaceFloor);
@@ -468,7 +455,7 @@ void init(const char *title, int xpos, int ypos, int width, int height, bool ful
 	destTypeHereR.y = 616;
 }
 
-void handleEvents() {
+/*void handleEvents() {
 	SDL_Event event;
 	SDL_PollEvent(&event);
 
@@ -480,51 +467,51 @@ void handleEvents() {
 		default:
 			break;
 	}
+}*/
+
+void render_living_room(void) {
+	SDL_RenderClear(renderer_living_room);
+	SDL_RenderCopy(renderer_living_room, wallTex, NULL, &destWallR);
+	SDL_RenderCopy(renderer_living_room, floorTex, NULL, &destFloorR);
+	SDL_RenderCopy(renderer_living_room, sockBinaryTex, NULL, &destSockBinaryR);
+	SDL_RenderCopy(renderer_living_room, tallBookcaseTex, NULL, &destTallBookcaseR);
+	SDL_RenderCopy(renderer_living_room, booksOnTheStoolTex, NULL, &destBooksOnTheStoolR);
+	SDL_RenderCopy(renderer_living_room, clockTex, NULL, &destClockR);
+	SDL_RenderCopy(renderer_living_room, candlesTex, NULL, &destCandlesR);
+	SDL_RenderCopy(renderer_living_room, horizontalStandTex, NULL, &destHorizontalStandR);
+	SDL_RenderCopy(renderer_living_room, radioTex, NULL, &destRadioR);
+	SDL_RenderCopy(renderer_living_room, vaseTex, NULL, &destVaseR);
+	SDL_RenderCopy(renderer_living_room, minibarTex, NULL, &destMinibarR);
+	SDL_RenderCopy(renderer_living_room, sofaTex, NULL, &destSofaR);
+	SDL_RenderCopy(renderer_living_room, plantDarkTex, NULL, &destPlantDarkR);
+	SDL_RenderCopy(renderer_living_room, fireplaceTex, NULL, &destFireplaceR);
+	SDL_RenderCopy(renderer_living_room, pictureRockTex, NULL, &destPictureRockR);
+	SDL_RenderCopy(renderer_living_room, roundClockTex, NULL, &destRoundClockR);
+	SDL_RenderCopy(renderer_living_room, writeTableAndChairTex, NULL, &destWriteTableAndChairR);
+	SDL_RenderCopy(renderer_living_room, inkTex, NULL, &destInkR);
+	SDL_RenderCopy(renderer_living_room, fortepianoTex, NULL, &destFortepianoR);
+	SDL_RenderCopy(renderer_living_room, redCarpetTex, NULL, &destRedCarpetR);
+	SDL_RenderCopy(renderer_living_room, toyHorseTex, NULL, &destToyHorseR);
+	SDL_RenderCopy(renderer_living_room, ballTex, NULL, &destBallR);
+	SDL_RenderCopy(renderer_living_room, bigTableTex, NULL, &destBigTableR);
+	SDL_RenderCopy(renderer_living_room, chairRight1Tex, NULL, &destChairRight1R);
+	SDL_RenderCopy(renderer_living_room, chairRight2Tex, NULL, &destChairRight2R);
+	SDL_RenderCopy(renderer_living_room, chairRight3Tex, NULL, &destChairRight3R);
+	SDL_RenderCopy(renderer_living_room, chairRight4Tex, NULL, &destChairRight4R);
+	SDL_RenderCopy(renderer_living_room, vaseWithRedFlowersTex, NULL, &destVaseWithRedFlowersR);
+	SDL_RenderCopy(renderer_living_room, openedOrangeBookTex, NULL, &destOpenedOrangeBookR);
+	SDL_RenderCopy(renderer_living_room, platesTex, NULL, &destPlatesR);
+	SDL_RenderCopy(renderer_living_room, fishTex, NULL, &destFishR);
+	SDL_RenderCopy(renderer_living_room, yellowTableTex, NULL, &destYellowTableR);
+	SDL_RenderCopy(renderer_living_room, whiteChair1Tex, NULL, &destWhiteChair1R);
+	SDL_RenderCopy(renderer_living_room, whiteChair2Tex, NULL, &destWhiteChair2R);
+	SDL_RenderCopy(renderer_living_room, rectangleTex, NULL, &destRectangleR);
+	SDL_RenderCopy(renderer_living_room, typeHereTex, NULL, &destTypeHereR);
+
+	SDL_RenderPresent(renderer_living_room);
 }
 
-void render() {
-	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, wallTex, NULL, &destWallR);
-	SDL_RenderCopy(renderer, floorTex, NULL, &destFloorR);
-	SDL_RenderCopy(renderer, sockBinaryTex, NULL, &destSockBinaryR);
-	SDL_RenderCopy(renderer, tallBookcaseTex, NULL, &destTallBookcaseR);
-	SDL_RenderCopy(renderer, booksOnTheStoolTex, NULL, &destBooksOnTheStoolR);
-	SDL_RenderCopy(renderer, clockTex, NULL, &destClockR);
-	SDL_RenderCopy(renderer, candlesTex, NULL, &destCandlesR);
-	SDL_RenderCopy(renderer, horizontalStandTex, NULL, &destHorizontalStandR);
-	SDL_RenderCopy(renderer, radioTex, NULL, &destRadioR);
-	SDL_RenderCopy(renderer, vaseTex, NULL, &destVaseR);
-	SDL_RenderCopy(renderer, minibarTex, NULL, &destMinibarR);
-	SDL_RenderCopy(renderer, sofaTex, NULL, &destSofaR);
-	SDL_RenderCopy(renderer, plantDarkTex, NULL, &destPlantDarkR);
-	SDL_RenderCopy(renderer, fireplaceTex, NULL, &destFireplaceR);
-	SDL_RenderCopy(renderer, pictureRockTex, NULL, &destPictureRockR);
-	SDL_RenderCopy(renderer, roundClockTex, NULL, &destRoundClockR);
-	SDL_RenderCopy(renderer, writeTableAndChairTex, NULL, &destWriteTableAndChairR);
-	SDL_RenderCopy(renderer, inkTex, NULL, &destInkR);
-	SDL_RenderCopy(renderer, fortepianoTex, NULL, &destFortepianoR);
-	SDL_RenderCopy(renderer, redCarpetTex, NULL, &destRedCarpetR);
-	SDL_RenderCopy(renderer, toyHorseTex, NULL, &destToyHorseR);
-	SDL_RenderCopy(renderer, ballTex, NULL, &destBallR);
-	SDL_RenderCopy(renderer, bigTableTex, NULL, &destBigTableR);
-	SDL_RenderCopy(renderer, chairRight1Tex, NULL, &destChairRight1R);
-	SDL_RenderCopy(renderer, chairRight2Tex, NULL, &destChairRight2R);
-	SDL_RenderCopy(renderer, chairRight3Tex, NULL, &destChairRight3R);
-	SDL_RenderCopy(renderer, chairRight4Tex, NULL, &destChairRight4R);
-	SDL_RenderCopy(renderer, vaseWithRedFlowersTex, NULL, &destVaseWithRedFlowersR);
-	SDL_RenderCopy(renderer, openedOrangeBookTex, NULL, &destOpenedOrangeBookR);
-	SDL_RenderCopy(renderer, platesTex, NULL, &destPlatesR);
-	SDL_RenderCopy(renderer, fishTex, NULL, &destFishR);
-	SDL_RenderCopy(renderer, yellowTableTex, NULL, &destYellowTableR);
-	SDL_RenderCopy(renderer, whiteChair1Tex, NULL, &destWhiteChair1R);
-	SDL_RenderCopy(renderer, whiteChair2Tex, NULL, &destWhiteChair2R);
-	SDL_RenderCopy(renderer, rectangleTex, NULL, &destRectangleR);
-	SDL_RenderCopy(renderer, typeHereTex, NULL, &destTypeHereR);
-
-	SDL_RenderPresent(renderer);
-}
-
-void remove_object(char *letters) {
+void remove_object_living_room(char *letters) {
 	int r;
 	srand(time(0));
 	printf("letters is %s\n", letters);
@@ -620,25 +607,29 @@ void remove_object(char *letters) {
 }
 
 void living_room(const int width, const int height) {
+	double time;
 	char letters[100];
 	int enter = 0,
 		count = 0;
 
-    init("Find the sock", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, false);
+    init_living_room("Living room", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height);
 
-    while (isRunning) {
+    while (isRunning_living_room) {
+		time = SDL_GetTicks();
+		if (time >= 60000) break;
+
 		enter = 0;
 		SDL_Event event;
 		SDL_PollEvent(&event);
 
 		switch(event.type) {
 			case SDL_QUIT:
-				isRunning = false;
+				isRunning_living_room = false;
 				break;
 			case SDL_KEYDOWN:
 				count = keydown(event, letters, &enter);
 				if (enter == 1) {
-					remove_object(letters);
+					remove_object_living_room(letters);
 					printf("if in\n");
 					for (int i = 0; i < count; i++)
 						letters[i] = '\0';
@@ -650,11 +641,11 @@ void living_room(const int width, const int height) {
                     if (SDL_PointInRect(&(SDL_Point){event.button.x, event.button.y}, &destSockBinaryR)) {
                         //printf("Button RULES clicked!\n");
 						win(width, height);
-                        clean(window, renderer);
+                        clean(window_living_room, renderer_living_room);
 						return;
                     }
 		}
-		render();
+		render_living_room();
 	}
 
 	for (int i = 0; i < count; i++) {
@@ -662,5 +653,5 @@ void living_room(const int width, const int height) {
 	}
 
 	lose(width, height);
-    clean(window, renderer);
+    clean(window_living_room, renderer_living_room);
 }
